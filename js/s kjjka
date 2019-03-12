@@ -1,0 +1,120 @@
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - Autorizando acceso prim▒rio al usuario...
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - clave Usuario: aposada
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: GerenteSeguridad - Informaci▒n de usuario obtenida con ▒xito de tabla de usuarios.
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - Usuario autenticado: sesi▒n v▒lida.
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: ParametrizarRegistroContableDetalleAction - Flujo form_Load
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: ParametrizarRegistroContableDetalleAction - Get empresa para o id 16
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.catalogo.EmpresaDAO
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - Iniciando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: EmpresaDAO - ============================EmpresaDAO() listar()
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDao - =====================INICIO ========UtileriasDAO() obtenerQuery()
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDao -
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDAO - ObtenerQuery Sql ::  from x in class mx.com.prosa.silfac.facturacion.dmn.catalogos.Empresa where  x.id = 16 order by x.clave
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: Hibernate: select x.ID_EMPRESA as ID_EMPRESA, x.FECHA_MOD as FECHA_MOD, x.CLAVE_EMPRESA as CLAVE_EM3_, x.RAZON_SOCIAL as RAZON_SO4_, x.CURP as CURP, x.RFC as RFC, x.TEL1 as TEL1, x.TEL2 as TEL2, x.FAX as FAX, x.REPRESENTANTE_LEGAL as REPRESE10_, x.EMAIL as EMAIL, x.REGIMEN_FISCAL as REGIMEN12_, x.LUGAR_EXPEDICION as LUGAR_E13_, x.CLAVE_REGFISCAL_SAT as CLAVE_R14_, x.USUARIO as USUARIO, x.FECHA_CRE as FECHA_CRE, x.COMENTARIOS as COMENTA17_, x.ESTATUS as ESTATUS, x.ID_DOMICILIO as ID_DOMI19_ from TBL_SIF_CAT_EMPRESAS x where (x.ID_EMPRESA=16 ) order by  x.CLAVE_EMPRESA
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - Finalizando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: ParametrizarRegistroContableDetalleAction - Get tipoCuenta para o id 62
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.catalogo.TipoCuentaContableDAO
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - Iniciando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: TipoCuentaContableDAO - .listar()
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDao - =====================INICIO ========UtileriasDAO() obtenerQuery()
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDao -
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: UtileriasDAO - ObtenerQuery Sql ::  from x in class mx.com.prosa.silfac.facturacion.dmn.catalogos.TipoCuentaContable where  x.id = 62 order by x.clave
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: Hibernate: select x.ID_TIPO_CUENTA as ID_TIPO_1_, x.FECHA_MOD as FECHA_MOD, x.CLAVE as CLAVE, x.DESCRIPCION as DESCRIPC2_, x.NUMERO_CTA_CONTABLE as NUMERO_C4_, x.TIPO_MOV as TIPO_MOV, x.ESTATUS as ESTATUS, x.USUARIO as USUARIO, x.FECHA_CRE as FECHA_CRE, x.COMENTARIOS as COMENTAR9_ from TBL_SIF_CAT_TIPO_CUENTAS x where (x.ID_TIPO_CUENTA=62 ) order by  x.CLAVE
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: PersistenceConnector - Finalizando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:11] INFO (11092): CORE3282: stdout: ParametrizarRegistroContableAction - Flujo form_DetalleModeloPoliza
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - RequestURI: /silfac/agregarModeloPolizaContable.do
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - Autorizando acceso prim▒rio al usuario...
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - clave Usuario: aposada
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - Informaci▒n de usuario obtenida con ▒xito de tabla de usuarios.
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: SilfacAuthorizationFilter - Usuario autenticado: sesi▒n v▒lida.
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - form_Load
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - autorizar
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - Informaci▒n de usuario obtenida con ▒xito de tabla de usuarios.
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.comun.seguridad.EventoDAO
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - Iniciando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - autorizar()
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - Evento[parametrizarRegistroContable]
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EventoDAO - SQL: from x in class mx.com.prosa.silfac.comun.seguridad.Evento where UPPER(x.evento) = 'PARAMETRIZARREGISTROCONTABLE'
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: Hibernate: select x.ID_EVENTO as ID_EVENTO, x.EVENTO as EVENTO, x.CONTROLADOR as CONTROLA3_, x.PERMISO as PERMISO from TBL_SIF_EVENTOS x where (UPPER(x.EVENTO)='PARAMETRIZARREGISTROCONTABLE' )
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.comun.seguridad.PermisosGrupoDAO
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - PERMISO:151
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - CLAVE DE GRUPO:ADMINISTRADOR
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - CLAVE DE USUARIO:aposada
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getReadOnlySession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PermisosGrupoDAO - Permiso:151
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - Finalizando uso de sesi▒n read only!!!!
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - Obtaining home...
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EJBHomeFactory - En el getFactory
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EJBHomeFactory - En el lookUp del Factory
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EJBHomeFactory - JNDI: mx.com.prosa.silfac.facturacion.app.registro.ControladorParametrizarRegistroContable
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EJBHomeFactory - En el else del lookUp del Factory
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: EJBHomeFactory - Home obtained: mx.com.prosa.silfac.facturacion.app.registro._ControladorParametrizarRegistroContableHome_Stub
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - Home obtained: mx.com.prosa.silfac.facturacion.app.registro._ControladorParametrizarRegistroContableHome_Stub
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - Creating method create...
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - Invoking method create...
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ParametrizarRegistroContablePolizaAction - Controller obtained: mx.com.prosa.silfac.facturacion.app.registro._ControladorParametrizarRegistroContable_Stub
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB -  - Iniciando metodo ejecutar: AGREGAR_POLIZA
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo createSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.bitacora.BitacoraSistemaDAO
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Principal obtenido: aposada
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: GerenteSeguridad - Informaci▒n de usuario obtenida con ▒xito de tabla de usuarios.
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Usuario obtenido: aposada
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: Hibernate: insert into TBL_SIF_BITACORA (CODIGO, USUARIO, DESCRIPCION, PROCEDIMIENTO, HORA) values (?, ?, ?, ?, ?)
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Iniciando ejecuci▒n del controlador, operaci▒n AGREGAR_POLIZA
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - agregarPoliza - Inicio
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.registro.ModeloPolizaContableDAO
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: Hibernate: select x.ID_MODELO_POLIZA as ID_MODEL1_, x.FECHA_MOD as FECHA_MOD, x.CLAVE as CLAVE, x.DESCRIPCION as DESCRIPC4_, x.USUARIO as USUARIO, x.FECHA_CRE as FECHA_CRE, x.COMENTARIOS as COMENTAR7_, x.ESTATUS as ESTATUS, x.TIPO as TIPO from TBL_SIF_CAT_POLIZAS_CONTABLES x where (x.CLAVE='COBRO_D' )and(x.ESTATUS='ACT' )
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:20] INFO (11092): CORE3282: stdout: Hibernate: insert into TBL_SIF_CAT_POLIZAS_CONTABLES (FECHA_MOD, CLAVE, DESCRIPCION, USUARIO, FECHA_CRE, COMENTARIOS, ESTATUS, TIPO, ID_MODELO_POLIZA) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.registro.ModeloRegistroContableDAO
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: Hibernate: insert into TBL_SIF_CAT_REGISTROS_CONT (TIPO_MOVIMIENTO, TIPO_CENTRO_COSTOS, DESCRIPCION, PROYECTO, PRODUCTO, TEMPORAL, TIPO_IMPORTE, ID_CENTRO_COSTOS, ID_EMPRESA, ID_TIPO_CUENTA_CONTABLE, ID_MODELO_POLIZA, NUMERO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: Hibernate: insert into TBL_SIF_CAT_REGISTROS_CONT (TIPO_MOVIMIENTO, TIPO_CENTRO_COSTOS, DESCRIPCION, PROYECTO, PRODUCTO, TEMPORAL, TIPO_IMPORTE, ID_CENTRO_COSTOS, ID_EMPRESA, ID_TIPO_CUENTA_CONTABLE, ID_MODELO_POLIZA, NUMERO) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - agregarPoliza - - Fin
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: FabricaDAO - ip.gelClass()=class mx.com.prosa.silfac.facturacion.eai.bitacora.BitacoraSistemaDAO
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Principal obtenido: aposada
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: GerenteSeguridad - Informaci▒n de usuario obtenida con ▒xito de tabla de usuarios.
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Usuario obtenido: aposada
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getSession
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - La sesion que devuelve: net.sf.hibernate.impl.SessionImpl@5163a
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: Hibernate: insert into TBL_SIF_BITACORA (CODIGO, USUARIO, DESCRIPCION, PROCEDIMIENTO, HORA) values (?, ?, ?, ?, ?)
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - Finalizando con ▒xito el metodo ejecutar... (aguarde commit de la transacci▒n)
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo getInstance
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: PersistenceConnector - m▒todo closeSession
+[06/Sep/2018:22:41:21] WARNING (11092): SQL Warning: 17110, SQLState: null
+[06/Sep/2018:22:41:21] WARNING (11092): Warning: execution completed with warning
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ControladorParametrizarRegistroContableEJB - ▒▒FLUJO DEL CASO DE USO FINALIZADO CON ▒XITO!!
+[06/Sep/2018:22:41:21] INFO (11092): CORE3282: stdout: ParametrizarRegistroContableAction - Flujo form_DetalleModeloPoliza

@@ -1,0 +1,248 @@
+SELECT 
+--#!Oracle View
+--################################################################################
+--# Nombre del Programa : V_SIF_REGISTROS_PENDIENTES                             #
+--# Autor :                                                                      #
+--# Compania :                                                                   #
+--# Proyecto/Procliente : M-08-0242-09                         Fecha: 14.04.2009 #
+--# Descripcion General : Vista para obtener informacion de Mandates Surcharge   #
+--#                       de Visa (transacciones_internacionales y tbl_surcharge)#
+--# Programa Dependiente: N/A                                                    #
+--# Programa Subsecuente: N/A                                                    #
+--# Cond. de ejecucion :                                                         #
+--# Dias de ejecucion : Horario: hh:mm                                           #
+--# MODIFICACIONES                                                               #
+--#------------------------------------------------------------------------------#
+--# Autor : Abel Minjarez                                                        #
+--# Compania : AM Estudio                                                        #
+--# Proyecto/Procliente : M-08-0242-09                         Fecha: 24.04.2009 #
+--# Descripcion General : Mandates Surchage de VISA                              #
+--#                       Vista para obtener informacion de registros contables  #
+--#                       de los servicios S12401 y S12402 para polizas INFRA    #
+--# Marca del cambio: M-08-0242-09 AMEstudio 24.94.2009                          #
+--#------------------------------------------------------------------------------#
+--# Autor : Abel Minjarez                                                        #
+--# Compania : AM Estudio                                                        #
+--# Proyecto/Procliente : I-04-1040-09                         Fecha: 24.09.2009 #
+--# Descripcion General : CrossBorder Emisor y Adquirente                        #
+--#                      Se agrega negocio cross para manejo de la fecha de cobro#
+--# Marca del cambio: I-04-1040-09 AMEstudio 28.09.2009                          #
+--#------------------------------------------------------------------------------#
+--# Autor               : MANUEL VILLALOBOS                                      #
+--# Compania            : GSOF CONSULTING                                        #
+--# Proyecto/Procliente : N-08-0963-09                         Fecha: 22.06.2010 #
+--# Descripcion General : SE AGREGAN LOS SERVICIOS S12101 Y S12201 EN ADQ Y EMI, #
+--#                       TAMBIEN SE AGREGA 2A FIID DE BANCOPPEL Y SE QUITA DE   #
+--#                       LA CUENTA 6155900                                      #
+--# Marca del cambio    : GSOF-MVR-N-08-0963-09                                  #
+--#------------------------------------------------------------------------------#
+--# Autor : Abel Minjarez                                                        #
+--# Compania : AM Estudio                                                        #
+--# Proyecto/Procliente : F-04-2504-10                         Fecha: 28.07.2010 #
+--# Descripcion General : Incluir nuevo servicio en Finanzas para cubrir falla   #
+--#                       en proyecto Loyalty                                    #
+--# Marca del cambio: F-04-2504-10 AMEstudio 28.07.2010                          #
+--#------------------------------------------------------------------------------#
+--# Autor               : Abel Minjarez                                          #
+--# Compania            : AM Estudio                                             #
+--# Proyecto/Procliente : M-08-2614-10                         Fecha: 15.09.2010 #
+--# Descripcion General : Mandates MasterCard Tasas de Intercambio cargo por     #
+--#                       acceso a ATM                                           #
+--# Marca del cambio    : M-08-2614-10 AMEstudio 15.09.2010                      #
+--#------------------------------------------------------------------------------#
+--# Autor               : Abel Minjarez                                          #
+--# Compania            : AM Estudio                                             #
+--# Proyecto/Procliente : P-02-0408-10                         Fecha: 24.06.2011 #
+--# Descripcion General : Incorporacion de China Union Pay                       #
+--# Marca del cambio    : P-02-0408-10 AMEstudio 24.06.2011                      #
+--#------------------------------------------------------------------------------#
+--# Autor               : Abel Minjarez                                          #
+--# Compania            : AM Estudio                                             #
+--# Proyecto/Procliente : P-06-2543-12                         Fecha: 21.08.2014 #
+--# Descripcion General : Incorporacion del Switch JCB                           #
+--# Marca del cambio    : P-06-2543-12 AMEstudio 21.08.2014                      #
+--#------------------------------------------------------------------------------#
+--# Numero de Parametros:                                                        #
+--# Parametros Entrada : Formato:                                                #
+--# Parametros Salida : Formato:                                                 #
+--################################################################################
+    pc.id_modelo_poliza,
+    pc.clave AS clave_modelo_poliza,
+    pc.descripcion,
+    pc.tipo AS tipo_modelo_poliza,
+    mn.id_moneda,
+    mn.nombre_moneda,
+    mn.t_moneda tipo_moneda,
+       rc.numero AS numero_modelo_registro,
+    em.id_empresa,
+    em.clave_empresa,
+    pr.id_proceso,
+       pr.clave_proceso,
+    ng.id_negocio id_negocio,
+    ng.clave clave_negocio,
+    ng.DESCRIPCION descripcion_negocio,
+    sv.id_servicios AS id_servicio,
+    sv.clave AS clave_servicio,
+    sv.id_centro_costos AS id_centro_costos_serv,
+       sf.id_servicios_facturar,
+    sf.id_cliente,
+    cl.clave_cliente,
+    rc.id_tipo_cuenta_contable,
+    decode(ctc.clave,'ING_SERVICIO',sv.CUENTA_INGRESO,'ING_NEGOCIO',ng.CUENTA_INGRESO,'CUENTA_INGRESO',ctc.NUMERO_CTA_CONTABLE,cc.numero_cuenta) numero_cuenta,
+    cc.numero_cuenta_default,
+    sf.fecha_datos,                                  
+    -- Marca inicio: I-04-1040-09 AMEstudio 28.09.2009
+    decode(pr.clave_proceso,'CROSS',dp.fecha_cobro,dp.fecha_registro_gl) fecha_registro_gl,
+    -- Marca fin   : I-04-1040-09 AMEstudio 28.09.2009
+       dp.fecha_calculo,
+       dp.fecha_cobro,
+    DECODE(sv.tipo_servicio,'COBRO',(NVL(sf.costo_servicio,0)+NVL(sf.descuento,0)+NVL(sf.imp_ajuste_mensual,0)),0) AS importe_cobranza,
+    DECODE(sv.tipo_servicio,'PAGO',(NVL(sf.costo_servicio,0)+NVL(sf.descuento,0)+NVL(sf.imp_ajuste_mensual,0)),0) AS importe_cobranza_pago,
+    DECODE(sv.tipo_servicio,'COBRO',round(NVL(sf.costo_servicio,0)+NVL(sf.imp_ajuste_mensual,0)-NVL(sf.imp_rebate_mensual,0),2),0) AS importe_neto,
+    DECODE(sv.tipo_servicio,'PAGO',round(NVL(sf.costo_servicio,0)+NVL(sf.imp_ajuste_mensual,0)-NVL(sf.imp_rebate_mensual,0),2),0) AS importe_neto_pago,
+    DECODE(sv.tipo_servicio,'COBRO',round(NVL(sf.descuento,0)+NVL(sf.desc_ajuste_mensual,0),2),0)  AS importe_descuento,
+    DECODE(sv.tipo_servicio,'PAGO',round(NVL(sf.descuento,0)+NVL(sf.desc_ajuste_mensual,0),2),0)  AS importe_descuento_pago,
+    DECODE(sv.tipo_servicio,'COBRO',round(NVL(sf.imp_rebate_mensual,0),2),0) descuento_adicional,
+    DECODE(sv.tipo_servicio,'PAGO',round(NVL(sf.imp_rebate_mensual,0),2),0) descuento_adicional_pago,
+    DECODE(sv.tipo_servicio,'COBRO',round(NVL(sf.iva_servicio,0)+NVL(sf.iva_ajuste_mensual,0)+NVL(sf.iva_ajuste_rebate,0)-NVL(sf.iva_rebate_mensual,0),2),0) AS importe_iva,
+    DECODE(sv.tipo_servicio,'PAGO',round(NVL(sf.iva_servicio,0)+NVL(sf.iva_ajuste_mensual,0)+NVL(sf.iva_ajuste_rebate,0)-NVL(sf.iva_rebate_mensual,0),2),0) AS importe_iva_pago,
+    DECODE(sv.tipo_servicio,'COBRO'
+           , (NVL(sf.costo_servicio,0)+NVL(sf.imp_ajuste_mensual,0)-nvl(sf.desc_ajuste_mensual,0))
+           + (round((NVL(sf.iva_servicio,0)+NVL(sf.iva_ajuste_mensual,0)+NVL(sf.iva_ajuste_rebate,0)-NVL(sf.iva_rebate_mensual,0)),2)
+           - round(NVL(sf.imp_rebate_mensual,0),2)),0) AS importe_total,
+    DECODE(sv.tipo_servicio,'PAGO'
+           , (NVL(sf.costo_servicio,0)+NVL(sf.imp_ajuste_mensual,0)-nvl(sf.desc_ajuste_mensual,0))
+           + (round((NVL(sf.iva_servicio,0)+NVL(sf.iva_ajuste_mensual,0)+NVL(sf.iva_ajuste_rebate,0)-NVL(sf.iva_rebate_mensual,0)),2)
+           - round(NVL(sf.imp_rebate_mensual,0),2)),0) AS importe_total_pago,
+       sf.TOTAL_IMPORTE_EMISOR AS importe_neto_emi,
+       0 AS importe_neto_emi_pago,
+    sf.TOTAL_IVA_EMISOR AS importe_iva_emi,
+    0 AS importe_iva_emi_pago,
+       sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100) AS importe_total_emi,
+       0 AS importe_total_emi_pago,
+       sf.TOTAL_IMPORTE_ADQ AS importe_neto_adq,
+       0 AS importe_neto_adq_pago,
+       sf.TOTAL_IVA_ADQ AS importe_iva_adq,
+       0 AS importe_iva_adq_pago,
+       sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100) AS importe_total_adq,
+       0 AS importe_total_adq_pago
+      -- Modificacion        :  Marca de Inicio GSOF-MVR-N-08-0963-09
+      ,DECODE(sv.clave,'S12100',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12101',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12201',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12200',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0) imp_total_emi_bsoc_eglo
+      ,DECODE(sv.clave,'S12100',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12101',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12201',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100))
+                      ,'S12200',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)),0) imp_total_adq_bsoc_eglo
+      -- Modificacion        :  Marca de Terminacion GSOF-MVR-N-08-0963-09
+      ,DECODE(sv.clave,'S12300',(sf.TOTAL_IMPORTE_ADQ),0) imp_neto_adq_mds                                 
+       -- Marca Inici: M-08-0242-09 AMEstudio 24.94.2009
+      ,DECODE(sv.clave,'S12400',(sf.TOTAL_IMPORTE_ADQ),'S12402',(sf.TOTAL_IMPORTE_ADQ),0) imp_neto_adq_visa
+      ,DECODE(sv.clave,'S12401',(sf.TOTAL_IMPORTE_EMISOR),0) imp_neto_adq_visa1
+      ,DECODE(sv.clave,'S12300',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)),'S12400',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)),'S12402',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)),0) imp_neto_emi_visa_mds
+      ,DECODE(sv.clave,'S12300',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(nvl(cl.pct_iva,0)/100)),'S12400',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(nvl(cl.pct_iva,0)/100)),'S12402',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(nvl(cl.pct_iva,0)/100)),'S12401',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(nvl(cl.pct_iva,0)/100)),0) imp_iva_emi_visa_mds
+      ,DECODE(sv.clave,'S12300',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(1+nvl(cl.pct_iva,0)/100)),'S12400',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(1+nvl(cl.pct_iva,0)/100)),'S12402',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(1+nvl(cl.pct_iva,0)/100)),'S12401',(nvl(sf.TOTAL_IMPORTE_EMISOR,0)*(1+nvl(cl.pct_iva,0)/100)),0) imp_total_emi_visa_mds
+      ,DECODE(sv.clave,'S12300',(nvl(sf.TOTAL_IMPORTE_ADQ,0)),'S12400',(nvl(sf.TOTAL_IMPORTE_ADQ,0)),'S12402',(nvl(sf.TOTAL_IMPORTE_ADQ,0)),'S12401',(nvl(sf.TOTAL_IMPORTE_ADQ,0)),0) imp_neto_adq_visa_mds
+      ,DECODE(sv.clave,'S12300',(nvl(sf.TOTAL_IMPORTE_ADQ,0)*(nvl(cl.pct_iva,0)/100)),'S12400',(nvl(sf.TOTAL_IMPORTE_ADQ,0)*(nvl(cl.pct_iva,0)/100)),'S12402',(nvl(sf.TOTAL_IMPORTE_ADQ,0)*(nvl(cl.pct_iva,0)/100)),'S12401',(nvl(sf.TOTAL_IMPORTE_ADQ,0)*(nvl(cl.pct_iva,0)/100)),0) imp_iva_adq_visa_mds
+      ,DECODE(sv.clave,'S12300',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)),'S12400',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)),'S12402',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)),'S12401',(sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)),0) imp_total_adq_visa_mds
+      -- Marca Fin: M-08-0242-09 AMEstudio 24.94.2009
+      -- Modificacion        :  Marca de Inicio GSOF-MVR-N-08-0963-09      
+      ,DECODE(sv.clave,'S12101',DECODE(rc.id_tipo_cuenta_contable, 23, 
+                                        DECODE(cl.clave_cliente,'BC092',
+                                            (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)) - sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100),
+                                            (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100))),
+                                        (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)))
+                      ,'S12100',DECODE(rc.id_tipo_cuenta_contable, 23, 
+                                        DECODE(cl.clave_cliente,'BC092',
+                                            (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)) - sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100),
+                                            (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100))),
+                                        (sf.TOTAL_IMPORTE_ADQ*(1+nvl(cl.pct_iva,0)/100)))
+    				  ,'S12201',DECODE(rc.id_tipo_cuenta_contable, 23, 
+											DECODE(cl.clave_cliente,'BC092',
+												(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)*-1),
+												0),
+                                        0)
+                      ,0) imp_total_adq_bsoc
+      ,DECODE(sv.clave,'S12100',DECODE(cl.clave_cliente,'BC097',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12101',DECODE(cl.clave_cliente,'BC097',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),0) imp_total_emi_bnmx
+      ,DECODE(sv.clave,'S12100',DECODE(cl.clave_cliente,'BC096',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12101',DECODE(cl.clave_cliente,'BC096',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),0) imp_total_emi_bnmr
+      ,DECODE(sv.clave,'S12100',DECODE(cl.clave_cliente,'BC093',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12100',DECODE(cl.clave_cliente,'BC092',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12101',DECODE(cl.clave_cliente,'BC092',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12200',DECODE(cl.clave_cliente,'BC092',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12201',DECODE(cl.clave_cliente,'BC092',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12200',DECODE(cl.clave_cliente,'BC093',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12201',DECODE(cl.clave_cliente,'BC093',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),
+                       'S12101',DECODE(cl.clave_cliente,'BC093',(sf.TOTAL_IMPORTE_EMISOR*(1+nvl(cl.pct_iva,0)/100)),0),0) imp_total_emi_bnpl
+      -- Modificacion        :  Marca de Terminacion GSOF-MVR-N-08-0963-09
+      -- Marca inicio: F-04-2504-10 AMEstudio 28.07.2010
+      ,DECODE(sv.clave,'S12403',sf.TOTAL_IMPORTE_EMISOR,0) imp_neto_eglo_atm
+      ,DECODE(sv.clave,'S12403',sf.TOTAL_IMPORTE_EMISOR*(nvl(cl.pct_iva,0)/100),0) imp_iva_eglo_atm
+      ,DECODE(sv.clave,'S12403',sf.TOTAL_IMPORTE_EMISOR*(1+(nvl(cl.pct_iva,0)/100)),0) imp_total_eglo_atm
+      -- Marca fin: F-04-2504-10 AMEstudio 28.07.2010      
+      -- Modificacion        :  Marca de Inicio GSOF-MVR-N-08-0963-09      
+      -- Marca inicio: M-08-2614-10 AMEstudio 15.09.2010
+      ,DECODE(sv.clave,'S12301',sf.TOTAL_IMPORTE_EMISOR,0) imp_neto_mds1_atm
+      ,DECODE(sv.clave,'S12301',sf.TOTAL_IMPORTE_EMISOR*(nvl(cl.pct_iva,0)/100),0) imp_iva_mds1_atm
+      ,DECODE(sv.clave,'S12301',sf.TOTAL_IMPORTE_EMISOR*(1+(nvl(cl.pct_iva,0)/100)),0) imp_total_mds1_atm
+      -- Marca fin: M-08-2614-10 AMEstudio 15.09.2010
+      -- Marca inicio: P-02-0408-10 AMEstudio 24.06.2011
+      ,DECODE(sv.clave,'S12404',sf.TOTAL_IMPORTE_ADQ,0) imp_neto_upay_atm
+      ,DECODE(sv.clave,'S12404',sf.TOTAL_IMPORTE_ADQ*(nvl(cl.pct_iva,0)/100),0) imp_iva_upay_atm
+      ,DECODE(sv.clave,'S12404',sf.TOTAL_IMPORTE_ADQ*(1+(nvl(cl.pct_iva,0)/100)),0) imp_total_upay_atm
+      -- Marca fin: P-02-0408-10 AMEstudio 24.06.2011
+      -- Marca inicio: P-06-2543-12 AMEstudio 21.08.2014
+      ,DECODE(sv.clave,'S12405',sf.TOTAL_IMPORTE_EMISOR,0) imp_neto_jcb1_atm
+      ,DECODE(sv.clave,'S12405',sf.TOTAL_IMPORTE_EMISOR*(nvl(cl.pct_iva,0)/100),0) imp_iva_jcb1_atm
+      ,DECODE(sv.clave,'S12405',sf.TOTAL_IMPORTE_EMISOR*(1+(nvl(cl.pct_iva,0)/100)),0) imp_total_jcb1_atm
+      -- Marca fin: P-06-2543-12 AMEstudio 21.08.2014
+FROM SILFA.TBL_SIF_CAT_POLIZAS_CONTABLES pc,
+     SILFA.TBL_SIF_CAT_MONEDAS mn,
+     SILFA.TBL_SIF_CAT_REGISTROS_CONT rc,
+     SILFA.TBL_SIF_CAT_EMPRESAS em,
+     SILFA.TBL_SIF_CAT_PROCESOS pr,
+     SILFA.TBL_SIF_CAT_NEGOCIOS ng,
+     SILFA.TBL_SIF_NEGOCIOS_POLIZAS np,
+     SILFA.TBL_SIF_SERVICIOS sv,
+     SILFA.TBL_SIF_SERVICIOS_FACTURAR sf,
+     SILFA.TBL_SIF_CAT_DIAS_PERIODO dp,
+     SILFA.TBL_SIF_CAT_PERIODO pe,
+     SILFA.TBL_SIF_CAT_CLIENTES cl,
+     SILFA.TBL_SIF_CAT_TIPO_CUENTAS ctc,
+     (SELECT cltc.id_cliente, id_tipo_cuenta, numero_cta_contable AS numero_cuenta_default,
+                   NVL( cc.numero_cuenta, cltc.numero_cta_contable ) AS numero_cuenta
+             FROM ( SELECT cl.id_cliente, tc.id_tipo_cuenta, tc.numero_cta_contable
+                     FROM SILFA.TBL_SIF_CAT_CLIENTES cl, SILFA.TBL_SIF_CAT_TIPO_CUENTAS tc
+                    WHERE tc.estatus = 'ACT' AND cl.estatus = 'ACT' ) cltc
+       LEFT OUTER JOIN SILFA.TBL_SIF_CAT_CUENTAS_CLIENTES cc
+       ON cltc.id_cliente = cc.id_cliente
+       AND cltc.id_tipo_cuenta = cc.id_tipo_cta_contable) cc
+      -- Modificacion        :  Marca de Terminacion GSOF-MVR-N-08-0963-09
+WHERE rc.id_tipo_cuenta_contable = ctc.id_tipo_cuenta
+      AND cl.id_cliente = sf.id_cliente
+      AND mn.id_moneda = sf.id_moneda
+      AND sf.id_servicio = sv.id_servicios
+      AND sv.id_negocio = ng.id_negocio
+      AND ng.id_proceso = pr.id_proceso
+      AND em.id_empresa = pr.id_empresa
+      AND rc.id_modelo_poliza = pc.id_modelo_poliza
+      AND pc.id_modelo_poliza = np.id_modelo_poliza
+      AND ng.id_negocio = np.id_negocio
+      AND dp.fecha_referencia = sf.fecha_datos
+      AND pe.id_periodos = dp.id_periodo
+      AND cc.id_cliente = cl.id_cliente
+      AND cc.id_tipo_cuenta = rc.id_tipo_cuenta_contable
+      AND sf.estatus_registro_contable = 'PEN'
+   AND pr.id_proceso = ng.id_proceso
+      AND pc.estatus = 'ACT'
+      AND mn.estatus = 'ACT'
+      AND em.estatus = 'ACT'
+      AND pr.estatus = 'ACT'
+      AND ng.status = 'ACT'
+      AND sv.estatus = 'ACT'
+      AND cl.estatus = 'ACT'
+      AND pe.estatus = 'ACT'
+   AND sf.estatus_calculo = 'CAL'
+   AND sf.estatus != 'ELI'

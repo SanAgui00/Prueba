@@ -1,0 +1,53 @@
+@import bits
+@font-face 
+	font-family: 'Roboto'
+	font-style: normal
+	font-weight: 400
+	src: url('fonts/roboto-regular.eot')
+	src: url('fonts/roboto-regular.eot') format('embedded-opentype')
+	src: url('fonts/roboto-regular.woff2') format('woff2')
+	src: url('fonts/roboto-regular.woff') format('woff')
+	src: url('fonts/roboto-regular.ttf') format('truetype')
+
+@font-face 
+	font-family: 'Roboto Bold'
+	font-style: normal
+	font-weight: 400
+	src: url('fonts/roboto-500.eot')
+	src: url('fonts/roboto-500.eot') format('embedded-opentype')
+	src: url('fonts/roboto-500.woff2') format('woff2')
+	src: url('fonts/roboto-500.woff') format('woff')
+	src: url('fonts/roboto-500.ttf') format('truetype')
+
+// ESTILOS GENERALES
+html, body
+	height: 100%
+	background-color: $bg-background
+	font-size: $font-size
+	font-family: 'Roboto', sans-serif
+
+
+
+.body-login
+	padding-top: 0px $i
+	background-color: #f7f7f7 $i
+
+a
+	&:focus,&:active
+		outline: none
+		text-decoration: none
+		color: $bg-black $i
+	&:hover
+		color: $bg-red
+		text-decoration:  none
+
+
+@import navbar
+@import button
+@import form
+@import effect
+@import image
+@import sidebar
+@import container
+@import media-queries
+@import table  

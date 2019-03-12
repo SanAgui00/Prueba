@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+</head>
+
+<body>
+    <nav class="col-md-2 d-none d-md-block bg-white sidebar h-100  p-0 position-fixed">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+            </ul>
+        </div>
+    </nav>
+<!-- aqui empezar a copiar -->  
+
+
+<div class="col-md-10 ml-sm-auto col-lg-10 pb-4">
+	<!-- etiquetas unicas -->
+	<!-- NEW -->
+
+	<sf:form
+		action="${pageContext.request.contextPath}/home/adq/auto/compararadquisicion/consulta"
+		method="POST" commandName="fuente" autocomplete="off">
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card mt-1">
+					<div class="card-header">
+						<span class="title" id="menu-toggle">Comparar Adquisicion</span>
+						<!-- menus -->
+						<!-- menus -->
+						<!-- menus -->
+						<ul class="nav d-inline-block">
+							<li class="nav-item d-inline-block"><a
+								class="nav-link text-secondary p-0 mr-3 ml-5  tab-link active"
+								id="tab-1" data-toggle="tab" href="#tab1" role="tab"
+								aria-controls="tab1" aria-selected="true">Comparar
+									Adquisicion</a></li>
+							<li class="nav-item d-inline-block"><a
+								class="nav-link text-secondary p-0 mr-3  tab-link" id="tab-2"
+								data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2"
+								aria-selected="false">Definir criterios</a></li>
+
+						</ul>
+						<!-- menus -->
+						<!-- menus -->
+						<!-- menus -->
+						<span class="float-right text-secondary mr-3" id="btn-ocultar">Ocultar</span>
+					</div>
+					<div class="tab-content" id="mainMenu">
+						<div class="tab-pane  show active" id="tab1" role="tabpanel"
+							aria-labelledby="tab-1">
+							<!-- menu 1-->
+							<!-- menu 1-->
+							<!-- menu 1-->
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="mt-1">
+
+
+										<div class="row">
+											<label class="col-sm-2 col-md-2 mt-3  ml-3">Nivel de
+												Comparación:</label>
+											<div class="col-sm-6 col-md-6 mt-3 ">
+
+												<div
+													class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="negocio" name="nivelComparacion"
+														class="custom-control-input nivelComparacion" id="negocio"
+														value="negocio" checked="checked"> <label
+														class="custom-control-label" for="negocio">
+														Negocio</label>
+												</div>
+
+												<div
+													class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="cliente" name="nivelComparacion"
+														class="custom-control-input nivelComparacion" id="cliente"
+														value="cliente"> <label
+														class="custom-control-label" for="cliente">
+														cliente</label>
+												</div>
+
+												<div
+													class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="servicio" name="nivelComparacion"
+														class="custom-control-input nivelComparacion"
+														id="servicio" value="servicio"> <label
+														class="custom-control-label" for="servicio">
+														servicio</label>
+												</div>
+
+
+
+												<!-- 												<input type="radio" name="nivelComparacion" -->
+												<!-- 													class="radioOpcion mr-3" id="negocio" value="negocio" -->
+												<!-- 													checked>Por Negocio  -->
+												<!-- 												<input type="radio" -->
+												<!-- 													name="nivelComparacion" class="radioOpcion ml-3 mr-3" -->
+												<!-- 													id="servicio" value="servicio">Por Servicio  -->
+												<!-- 												<input -->
+												<!-- 													type="radio" name="nivelComparacion" -->
+												<!-- 													class="radioOpcion ml-3 mr-3" id="cliente" value="cliente">Por Cliente -->
+											</div>
+
+
+										</div>
+
+
+										<div id="mainMenu" class="show card-body">
+											<div class="row">
+												<div class="col-sm-6 col-md-6 mt-2 mb-2">
+
+
+
+
+
+													<div class="form-group row">
+														<label class="col-sm-4 col-form-label">Comparar
+															Servicios de Periodicidad</label>
+														<div class="col-sm-8  mt-3 ">
+															<select class="ajax-form form-control form-control-sm"
+																name="periodicidad" id="periodicidad" required>
+																<option value="">Selecciona una opcion</option>
+																<option value="DIA"
+																	${ periodicidad== 'DIA' ? 'selected="selected"' : ''}>Diaria</option>
+																<option value="MEN"
+																	${ periodicidad== 'MEN' ? 'selected="selected"' : ''}>Mensual</option>
+															</select>
+														</div>
+													</div>
+
+
+
+
+													<div class="form-group row">
+														<label class="col-sm-4 col-form-label">Grupo
+															Servicio: </label>
+														<div class="col-sm-8">
+															<select class="form-control form-control-sm"
+																name="gservicio" id="gservicio">
+																<option value="${gservicio}" value="">Selecciona
+																	una opcion</option>
+																<c:forEach items="${listaGrupoConceptoServ}" var="lista">
+																	<option
+																		value="<c:out value="${lista.id_grupo}"> </c:out>"
+																		${ lista.id_grupo==gservicio ? 'selected="selected"' : ''}>
+																		<c:out value="${lista.clave}"></c:out>
+																	</option>
+																</c:forEach>
+															</select>
+														</div>
+													</div>
+
+
+
+													<div class="form-group row">
+														<label class="col-sm-4 col-form-label">Servicio: </label>
+														<div class="col-sm-8">
+															<input type="text" value="${list_Servicios}"
+																name="list_Servicios" id="list_Servicios"
+																class="form-control form-control-sm ajax-form flagServicio"
+																placeholder="Busca un Servicio" />
+														</div>
+													</div>
+
+
+													<div class="form-group row form-negocio">
+														<label class="col-sm-4 col-form-label">Clientes: </label>
+														<div class="col-sm-8">
+															<input type="text" id="list_Clientes"
+																value="${list_Clientes}"
+																class="form-control form-control-sm ajax-form"
+																placeholder="Busca un cliente" name="list_Clientes" />
+														</div>
+													</div>
+
+
+
+													<div class="form-group row">
+														<label class="col-sm-5 col-md-4 ">Traer solamente
+															los rebases:</label>
+														<div class="col-sm-5 col-md-6 mt-2   ">
+														
+														
+															<div
+													class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="si" name="rebases"
+														class="custom-control-input rebases" id="si"
+														value="1" checked="checked"> <label
+														class="custom-control-label" for="si">
+														si</label>
+												</div>
+												
+															<div
+													class="custom-control custom-radio custom-control-inline">
+													<input type="radio" id="no" name="rebases"
+														class="custom-control-input rebases" id="no"
+														value="0" checked="checked"> <label
+														class="custom-control-label" for="no">
+														no</label>
+												</div>
+														
+														
+														
+														
+														
+														</div>
+													</div>
+
+
+													<div class="form-group row">
+														<button id="btime" type="submit" style="display: none"
+															class="btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto ">consulta</button>
+														<div class="col-sm-5 col-md-6 mt-2   ">
+															<input type="hidden" id="lista" name="lista" />
+														</div>
+														<div class="col-sm-5 col-md-6 mt-2   ">
+															<input type="hidden" id="listames" name="listames" />
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-3 col-md-6 ">
+
+
+
+
+
+													<div class="form-group row form-servicio">
+														<label class="col-sm-4 mt-2 col-form-label">Fuente:</label>
+														<div class="col-sm-8">
+															<select class="mt-2 form-control form-control-sm"
+																name="fuente" id="fuente">
+																<option value="">Selecciona una opcion</option>
+																<c:forEach items="${listaFuentes}" var="lista">
+																	<option
+																		value="<c:out value="${lista.id_fuente}"> </c:out>"
+																		${ lista.id_fuente==fuente ? 'selected="selected"' : ''}>
+																		<c:out value="${lista.clave}"></c:out>
+																	</option>
+																</c:forEach>
+															</select>
+														</div>
+													</div>
+
+													<div class="form-group row">
+														<label class="col-sm-4  col-form-label">Negocio:</label>
+														<div class="col-sm-8">
+															<select class="mt-2 form-control form-control-sm"
+																name="negocio" id="negocio">
+																<option value="">Selecciona una opcion</option>
+																<c:forEach items="${listaNegocios}" var="lista">
+																	<option
+																	value="<c:out value="${lista.id_negocio}"></c:out>"
+																		${ lista.id_negocio==negocio ? 'selected="selected"' : ''}>
+																		<c:out value="${lista.clave}"></c:out>
+																	</option>
+																</c:forEach>
+															</select>
+
+														</div>
+													</div>
+
+
+													<div class="form-group row form-servicio">
+														<label class="col-sm-4  col-form-label">Descripcion
+															Servicio:</label>
+														<div class="col-sm-8">
+
+															<select
+																class=" mt-2 form-control form-control-sm flagServicio d-none"
+																id="list_Servicios_r"  name="id_servicio" disabled>
+															</select> <select class=" mt-2 form-control form-control-sm "
+																id="listaDeServicios" name="id_servicio">
+																<option value="">Selecciona un servicio</option>
+																<c:forEach items="${listaServicio}" var="lista">
+																	<option
+																		value="<c:out value="${lista.id_servicios}"> </c:out>"
+																		${ lista.id_servicios==id_servicio ? 'selected="selected"' : ''}>
+																		<c:out value="${lista.clave}"></c:out> -
+																		<c:out value="${lista.descripcion}"></c:out>
+																	</option>
+																</c:forEach>
+															</select> <input type="hidden" id="hiddenservicio"
+																name="hiddenservicio" />
+
+														</div>
+													</div>
+
+													<div class="form-group row form-true">
+														<label class="col-sm-4 col-form-label">Descripcion
+															Clientes:</label>
+														<div class="col-sm-8">
+															<select
+																class=" mt-2 form-control form-control-sm d-none "
+																id="list_Clientes_r" name="id_cliente" disabled>
+															</select> <select class=" mt-2 form-control form-control-sm "
+																id="listaDeClientes" name="id_cliente">
+																<option value="0">Selecciona una opcion</option>
+																<c:forEach items="${listaClientes}" var="lista">
+																	<option
+																		value="<c:out value="${lista.id_cliente}"> </c:out>"
+																		${ lista.id_cliente==id_cliente ? 'selected="selected"' : ''}>
+																		<c:out value="${lista.clave_cliente}"></c:out> -
+																		<c:out value="${lista.nombre_corto}"></c:out></option>
+																</c:forEach>
+															</select> <input type="hidden" id="hiddencliente"
+																name="hiddencliente" />
+														</div>
+													</div>
+
+													<div class="form-group row">
+
+														<div class="form-group col-md-12 d-flex flex-row-reverse">
+															<button id="btnCon" type="button"
+																class="mt-5 confirmar btn btn-secondary text-white btn-sm float-right  mb-1 mt-2">Consultar</button>
+														</div>
+													</div>
+
+
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+							<!-- menu 1-->
+							<!-- menu 1-->
+							<!-- menu 1-->
+						</div>
+
+
+						<div class="tab-pane" id="tab2" role="tabpanel"
+							aria-labelledby="tab-2">
+							<!-- menu 2 -->
+							<!-- menu 2 -->
+							<!-- menu 2 -->
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6 col-md-6 mt-2">
+										<input type="hidden" id="path"
+											value="${pageContext.request.contextPath}" />
+										<div class="form-group row">
+											<label class="col-sm-5 col-form-label">(%)Tolerancia
+												Transacciones:</label>
+											<div class="col-sm-7   ">
+												<input type="text" id="list_toleranciatra"
+													class="form-control form-control-sm ajax-form"
+													name="list_toleranciatra" maxlength="8" value="20" />
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Dia base</label>
+											<div class="col-sm-8   ">
+											
+											
+											
+												<input type="date" value="${list_diabase}" id="list_diabase"
+													class="cambioFecha form-control form-control-sm ajax-form"
+													name="list_diabase"
+													/>
+													
+													<input type="hidden"  value="${list_diabase1}" name= "list_diabase1" id= "list_diabase1" >
+
+											</div>
+										</div>
+
+
+									</div>
+									<div class="col-sm-6 col-md-6 mt-2">
+
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">(%) Tolerancia
+												Monto:</label>
+											<div class="col-sm-8">
+												<input type="text" id="list_toleranciamonto"
+													class="form-control form-control-sm ajax-form"
+													name="list_toleranciamonto" maxlength="8" value="20" />
+											</div>
+										</div>
+
+
+
+
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Periodo base </label>
+											<div class="col-sm-8">
+												<select class="mt-2 form-control form-control-sm"
+													name="periodobase" id="periodobase">
+													<option value="">Selecciona una opcion</option>
+													<c:forEach items="${listaPeriodos}" var="lista">
+														<option
+															value="<c:out value="${lista.id_periodos}"> </c:out>"
+															${ lista.id_periodos==periodobase ? 'selected="selected"' : ''}>
+															<c:out value="${lista.nombre}"></c:out>
+														</option>
+													</c:forEach>
+												</select>
+											</div>
+										</div>
+
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+
+
+							<div class="card-body">
+								<div class="row">
+
+									<div class="col-sm-6 col-md-6 mt-2">
+
+										<div class="form-group row form-servicio">
+											<label class="col-sm-4 col-form-label">Servicio de
+												Periodicidad Diaria</label>
+											<div class="col-sm-8">
+												<input type="date" id="dia"
+													class="form-control form-control-sm ajax-form" name="dia" />
+
+											</div>
+										</div>
+
+
+											
+										<select name="dias" id="dias" size="9" multiple
+											class="col-sm-5">
+
+
+											<c:if test="${not empty lista}">
+												<c:set var="diasl" value="${lista}" />
+												<c:set var="diaslSplit" value="${fn:split(diasl,',')}" />
+												<c:forEach var="d" begin="0"
+													end="${fn:length(diaslSplit)-1}">
+													<%--                <fmt:parseDate pattern="yyyy-MM-dd" value="${diaslSplit [d]}" var="date" /> --%>
+													<fmt:parseDate value="${diaslSplit [d]}"
+														pattern="dd/MM/yyyy" var="date" />
+													<fmt:formatDate value="${date}" pattern="dd/MM/yyyy"
+														var="startFormat" />
+													<option value="${diaslSplit [d]}">${startFormat}</option>
+
+
+
+												</c:forEach>
+											</c:if>
+
+										</select>
+									
+										
+
+										
+										
+  <div class="column float-right ">
+   
+      <li>
+      		
+											<button id="adia" type="button" name="adia"
+											class="añadirDiaMes btn btn-secondary text-white btn-sm    col-md-5  ">Agregar
+											dia</button>
+
+      </li>
+      <li>
+      	
+	
+											<button id="eldia" type="button" name="eldia"
+												class=" añadirDiaMes btn btn-secondary text-white btn-sm  col-md-5 ">Eliminar
+												dia</button>
+											
+
+      </li>
+    
+    
+  </div>
+
+
+										
+
+											
+
+										
+
+									</div>
+
+
+									<div class="col-sm-6 col-md-6 mt-2">
+
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Servicio de
+												Periodicidad Mensual </label>
+											<div class="col-sm-8">
+												<select class="mt-2 form-control form-control-sm"
+													name="periodomes" id="periodomes">
+													<option value="">Selecciona una opcion</option>
+													<c:forEach items="${listaPeriodos}" var="lista">
+														<option value="${lista.id_periodos},${lista.nombre}"
+															${ lista.id_periodos==periodomes ? 'selected="selected"' : ''}>
+															<c:out value="${lista.nombre}"></c:out>
+														</option>
+													</c:forEach>
+												</select>
+											</div>
+										</div>
+
+
+
+										<select name="meses" id="meses" size="9" multiple
+											class="col-sm-8">
+
+
+											<c:if test="${not empty listames}">
+
+												<c:set var="mesesl" value="${listames}" />
+												<c:set var="mesesSplit" value="${fn:split(mesesl,'||')}" />
+												<c:forEach var="m" begin="0"
+													end="${fn:length(mesesSplit)-1}">
+													<c:set var="mesesSplit1"
+														value="${fn:split(mesesSplit [m],',')}" />
+													<option value="${mesesSplit [m]}">${mesesSplit1 [1]}</option>
+												</c:forEach>
+											</c:if>
+
+										</select>
+
+
+										<button name="ames" id="ames" type="button"
+											class="añadirDiaMes btn btn-secondary text-white btn-sm  float-right  col-md-3 mb-1 mt-auto ">Agregar
+											mes</button>
+										<div class="form-group row">
+
+
+											<button name="elmes" id="elmes" type="button"
+												class=" añadirDiaMes btn btn-secondary text-white btn-sm float-right col-md-4 mt-auto">Eliminar
+												mes</button>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- menu 2 -->
+							<!-- menu 2  -->
+							<!-- menu 2  -->
+						</div>
+
+					</div>
+					<!-- submit  -->
+					<!-- submit  -->
+
+
+
+					<div class="col-md-12 mb-2">
+						<c:if test="${empty consulta}">
+							<div class="row">
+								<div class="col-sm-12">
+
+									<div class="card mt-2 bg-transparent">
+										<div class="alert alert-light p-1 ml-2 bg-transparent"
+											role="alert">
+											<span class="icon-error_outline"></span> No se encontraron
+											resultados.
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+
+
+						</c:if>
+						<c:if test="${not empty consulta}">
+							<div class="card mt-2">
+								<div class="table-responsive">
+									<table
+										class="table table-scroll table-striped table-bordered table-hover">
+										<thead>
+											<tr>
+
+												<th class="${nivelComparacion eq 'negocio' ? '' : 'd-none'}">negocio</th>
+												<th
+													class="${nivelComparacion eq 'servicio' ? '' : 'd-none'}">servicios</th>
+												<th class="${nivelComparacion eq 'cliente' ? '' : 'd-none'}">cliente</th>
+
+												<th>Fecha Datos</th>
+												<th>Total Transacciones</th>
+												<th>impuesto</th>
+												<th>Desviación Transacciones.</th>
+												<th>Desviación Montos.</th>
+												<th>Porc. Desv. Transacciones (%)</th>
+												<th>Porc. Desv. Monto (%)</th>
+
+
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${consulta}" var="lista">
+												<tr>
+
+													<td
+														class="${nivelComparacion eq 'negocio' ? '' : 'd-none'}">
+														<c:forEach items="${listaNegocios}" var="negocio">
+															<c:out
+																value="${lista.id_negocio eq negocio.id_negocio ? negocio.clave : ''}"></c:out>
+														</c:forEach>
+													</td>
+
+
+													<td
+														class="${nivelComparacion eq 'servicio' ? '' : 'd-none'}">
+														<c:forEach items="${listaServicio}" var="servicio">
+															<c:out
+																value="${lista.id_servicio eq servicio.id_servicios ? servicio.clave : ''}"></c:out>
+														</c:forEach>
+													</td>
+
+													<td
+														class="${nivelComparacion eq 'cliente' ? '' : 'd-none'}">
+														<c:forEach items="${listaClientes}" var="cliente">
+															<c:out
+																value="${lista.id_cliente eq cliente.id_cliente ? cliente.clave_cliente : ''}"></c:out>
+														</c:forEach>
+													</td>
+
+
+													<td><c:out value="${lista.fecha_datos}"></c:out></td>
+													<td><c:out value="${lista.resultado_tx}"></c:out></td>
+													<td><c:out value="${lista.resultado_imp}"></c:out></td>
+													<td><c:out value="${lista.desviacion_trx}"></c:out></td>
+													<td><c:out value="${lista.desviacion_monto}"></c:out></td>
+													<td><c:out value="${lista.porc_desviacion_trx}"></c:out></td>
+													<td><c:out value="${lista.porc_desviacion_monto}"></c:out></td>
+
+
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+
+							<c:if test="${not empty registros_totales}">
+								<sf:form
+									action="${pageContext.request.contextPath}/home/adq/auto/compararadquisicion"
+									method="POST" name="pagination">
+									<!--                        VARIABLES OBTENIDAS MEDIANTE JS -->
+
+
+									<input type="hidden" name="compararadquisicion"
+										id="getcompararadquisicion" class="globalGet">
+									<input type="hidden" name="estatus" id="getestatus"
+										class="globalGet">
+
+
+									<input type="hidden" name="registros_totales"
+										id="registros_totales" class="registros_totales"
+										value="${registros_totales}">
+									<input type="hidden" name="fromRow" id="fromRow"
+										class="fromRow" value="">
+
+									<nav>
+										<ul class="pagination  pagination-sm justify-content-end">
+											<span class='page-link prev'><span
+												class="icon-arrow_back"></span></span>
+											<span class="pagination-container d-inline-block"
+												id="pagination-container"></span>
+											<span class='page-link next'><span
+												class="icon-arrow_forward"></span></span>
+										</ul>
+									</nav>
+									<button type="submit" class="d-none" id="pagination-submit"></button>
+								</sf:form>
+							</c:if>
+						</c:if>
+
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</sf:form>
+
+
+</div>
+
+<script type="text/javascript"
+	src='<c:url value="/js/appCompAdquisicion/criterios.js"/>'
+	defer="defer"></script>
+
+
+
+<!-- saqui terminar de copiar -->
+                <!-- scripts -->
+                <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+                <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                <script type="text/javascript" src="js/popper.js"></script>
+                <script type="text/javascript" src="js/typed.min.js"></script>
+                <script type="text/javascript" src="js/scrollreveal.min.js"></script>
+                <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>

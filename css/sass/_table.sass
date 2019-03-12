@@ -1,0 +1,41 @@
+@import bits
+.table-responsive
+	text-transform: uppercase
+	th
+		text-transform: capitalize
+		border-bottom: none $i
+	td
+		&:first-letter
+			text-transform: capitalize
+
+.table
+	margin-bottom: 0 $i
+	th
+		padding: 0.35rem 0.45rem $i
+		vertical-align: middle $i
+	td
+		padding: 0.35rem 0.45rem $i
+		vertical-align: middle $i
+		
+.max-width-150
+	max-width: 150px $i
+.nav-tabs 
+	.nav-link
+		color: $bg-black $i
+	.nav-link.active
+		font-weight: 600 $i 
+		color: $bg-red $i
+
+.pagination
+	padding-top: 10px $i
+
+.page-link
+	color: $bg-black $i
+a
+	&:focus
+		color: #fff $i
+
+.collapsing
+	-webkit-transition: height .10s ease
+	-o-transition: height .10s ease
+	transition: height .10s ease

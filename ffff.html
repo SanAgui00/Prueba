@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+</head>
+
+<body>
+    <nav class="col-md-2 d-none d-md-block bg-white sidebar h-100  p-0 position-fixed">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+            </ul>
+        </div>
+    </nav>
+ 
+<div class="col-md-10 ml-sm-auto col-lg-10">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card mt-1">
+				<sf:form
+					action="${pageContext.request.contextPath}/home/registro/asociar/consulta"
+					method="POST" commandName="fuente" autocomplete="off">
+					<div class="card-header">
+						<span class="title" id="menu-toggle">Lista de Polizas por
+							Negocio</span> <span class="float-right text-secondary" id="btn-ocultar">Ocultar</span>
+					</div>
+					<div id="mainMenu" class="show card-body">
+						<div class="row">
+							<div class="col-sm-6 col-md-6 mt-2 mb-2">
+								<input type="hidden" id="path"
+									value="${pageContext.request.contextPath}" />
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Negocios</label>
+									<div class="col-sm-8">
+										<input type="text" id="list_Negocios"
+											class="tabin1neg form-control form-control-sm ajax-form"
+											placeholder="Busca un negocio" name="list_Negocios" />
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 mt-2 mb-2">
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label">Descripcion</label>
+									<div class="col-sm-8">
+										<select class="tab1neg1 form-control form-control-sm d-none "
+											id="list_Negocios_r" name="id_negocio">
+										</select> <select class="tab1neg form-control form-control-sm "
+											id="listaDeNegocios" name="id_negocio">
+											<option value="">Selecciona una opcion</option>
+											<c:forEach items="${listaNegocios}" var="lista">
+												<option
+													value="<c:out value=" ${lista.id_negocio} "> </c:out>"
+													${ lista.id_negocio==negocio ? 'selected="selected"' : ''}>
+													<c:out value="${lista.clave}"></c:out>
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="form-group col-md-12 d-flex flex-row-reverse">
+										<button id="btnCon" type="submit"
+											class="btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">Consultar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</sf:form>
+			</div>
+		</div>
+	</div>
+	<c:if test="${not empty bandera}">
+		<div class="col-md-12 col-lg-12 pl-0 pr-0 h-75">
+			<div class="row h-100">
+				<div class="col-sm-12">
+					<div class="card mt-1 h-100">
+						<sf:form
+							action="${pageContext.request.contextPath}/home/registro/asociar/asociarpolinego"
+							method="POST" commandName="fuente" class="h-100" autocomplete="off">
+							<div class="card-header">
+								<span class="title" id="menu-toggle">Polizas Contables</span>
+							</div>
+							<div id="mainMenu" class="show card-body h-75">
+								<div class="row h-100">
+									<div class="col-md-5">
+										<select name="origen[]" id="origen" multiple="multiple"
+											class="form-control h-100 form-control-sm">
+											<c:forEach items="${consultaEnv}" var="lista">
+												<option
+													value="<c:out value="${negocio},${lista.id_modelo_poliza}"> </c:out>">
+													<c:out value="${lista.id_modelo_poliza} - ${lista.clave}"></c:out>
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="col-md-2">
+										<div class="container">
+											<div class="row justify-content-center">
+												<div class="col-3 text-center">
+													<div class="row">
+														<div class="form-group row">
+
+															<button id="btnCon" type="button"
+																class=" pasar izq btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">Pasar
+																>></button>
+
+
+															<button id="btnCon" type="button"
+																class=" quitar der btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">
+																<< Quitar</button>
+
+
+															<button id="btnCon" type="button"
+																class=" pasartodos izq btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">Todos
+																>></button>
+
+
+															<button id="btnCon" type="button"
+																class="quitartodos der btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">
+																<< Todos</button>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+									<div class="col-md-5">
+										<select name="destino[]" id="destino" multiple="multiple"
+											class="form-control h-100 form-control-sm">
+											<c:forEach items="${consulta}" var="lista">
+												<option
+													value="<c:out value="${negocio},${lista.id_modelo_poliza}"> </c:out>">
+													<c:out value="${lista.id_modelo_poliza} - ${lista.clave}"></c:out>
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+
+
+								<div class="row">
+									
+									<div class="col-sm-12 col-md-12 mt-2 mb-2 ">
+										<div class="form-group row justify-content-center">
+											<div class="form-group col-md-12 d-flex flex-row-reverse justify-content-center ml-5">
+												<button id="Asociar" type="button"
+													class="mr-5 btn btn-secondary text-white btn-sm float-right  mb-1 mt-auto">Asociar Polizas y Negocios</button>
+												<button id="AsociarMandar" type="submit"
+													class="mr-5 btn btn-secondary d-none text-white btn-sm float-right  mb-1 mt-auto">Asociar Polizas y Negocios</button>
+												<input type="hidden" id="newaso" name="newaso"/>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</sf:form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+</div>
+            <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+                <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                <script type="text/javascript" src="js/popper.js"></script>
+                <script type="text/javascript" src="js/typed.min.js"></script>
+                <script type="text/javascript" src="js/scrollreveal.min.js"></script>
+                <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
